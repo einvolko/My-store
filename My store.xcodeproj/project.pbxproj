@@ -6,6 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8F27C6A72D37C35900CE2EB3 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8F27C6A62D37C35900CE2EB3 /* ParseLiveQuery */; };
+		8F27C6A92D37C35900CE2EB3 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8F27C6A82D37C35900CE2EB3 /* ParseObjC */; };
+		8F5F31D62D676B7D00FB919E /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8F5F31D52D676B7D00FB919E /* ParseLiveQuery */; };
+		8F5F31D82D676B7D00FB919E /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8F5F31D72D676B7D00FB919E /* ParseObjC */; };
+		8F8DD72B2D6798B300FCC019 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8F8DD72A2D6798B300FCC019 /* ParseLiveQuery */; };
+		8F8DD72D2D6798B300FCC019 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8F8DD72C2D6798B300FCC019 /* ParseObjC */; };
+		8FF7F65C2D3D670000F28E30 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF7F65B2D3D670000F28E30 /* ParseLiveQuery */; };
+		8FF7F65E2D3D670000F28E30 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF7F65D2D3D670000F28E30 /* ParseObjC */; };
+		8FF7F6612D3D673000F28E30 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF7F6602D3D673000F28E30 /* ParseLiveQuery */; };
+		8FF7F6632D3D673000F28E30 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF7F6622D3D673000F28E30 /* ParseObjC */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		8F27C6802D36965B00CE2EB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +65,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FF7F6632D3D673000F28E30 /* ParseObjC in Frameworks */,
+				8F27C6A92D37C35900CE2EB3 /* ParseObjC in Frameworks */,
+				8F5F31D82D676B7D00FB919E /* ParseObjC in Frameworks */,
+				8FF7F65C2D3D670000F28E30 /* ParseLiveQuery in Frameworks */,
+				8FF7F6612D3D673000F28E30 /* ParseLiveQuery in Frameworks */,
+				8FF7F65E2D3D670000F28E30 /* ParseObjC in Frameworks */,
+				8F8DD72D2D6798B300FCC019 /* ParseObjC in Frameworks */,
+				8F5F31D62D676B7D00FB919E /* ParseLiveQuery in Frameworks */,
+				8F8DD72B2D6798B300FCC019 /* ParseLiveQuery in Frameworks */,
+				8F27C6A72D37C35900CE2EB3 /* ParseLiveQuery in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +135,16 @@
 			);
 			name = "My store";
 			packageProductDependencies = (
+				8F27C6A62D37C35900CE2EB3 /* ParseLiveQuery */,
+				8F27C6A82D37C35900CE2EB3 /* ParseObjC */,
+				8FF7F65B2D3D670000F28E30 /* ParseLiveQuery */,
+				8FF7F65D2D3D670000F28E30 /* ParseObjC */,
+				8FF7F6602D3D673000F28E30 /* ParseLiveQuery */,
+				8FF7F6622D3D673000F28E30 /* ParseObjC */,
+				8F5F31D52D676B7D00FB919E /* ParseLiveQuery */,
+				8F5F31D72D676B7D00FB919E /* ParseObjC */,
+				8F8DD72A2D6798B300FCC019 /* ParseLiveQuery */,
+				8F8DD72C2D6798B300FCC019 /* ParseObjC */,
 			);
 			productName = "My store";
 			productReference = 8F27C66F2D36965900CE2EB3 /* My store.app */;
@@ -195,6 +228,10 @@
 			);
 			mainGroup = 8F27C6662D36965900CE2EB3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8F27C6A52D37C35900CE2EB3 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */,
+				8F8DD7292D6798B300FCC019 /* XCLocalSwiftPackageReference "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8F27C6702D36965900CE2EB3 /* Products */;
 			projectDirPath = "";
@@ -404,6 +441,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,6 +471,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -558,6 +597,69 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		8F8DD7292D6798B300FCC019 /* XCLocalSwiftPackageReference "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F27C6A52D37C35900CE2EB3 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/parse-community/Parse-SDK-iOS-OSX";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F27C6A62D37C35900CE2EB3 /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F27C6A52D37C35900CE2EB3 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseLiveQuery;
+		};
+		8F27C6A82D37C35900CE2EB3 /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F27C6A52D37C35900CE2EB3 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */;
+			productName = ParseObjC;
+		};
+		8F5F31D52D676B7D00FB919E /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseLiveQuery;
+		};
+		8F5F31D72D676B7D00FB919E /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseObjC;
+		};
+		8F8DD72A2D6798B300FCC019 /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseLiveQuery;
+		};
+		8F8DD72C2D6798B300FCC019 /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseObjC;
+		};
+		8FF7F65B2D3D670000F28E30 /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseLiveQuery;
+		};
+		8FF7F65D2D3D670000F28E30 /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseObjC;
+		};
+		8FF7F6602D3D673000F28E30 /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseLiveQuery;
+		};
+		8FF7F6622D3D673000F28E30 /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseObjC;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F27C6672D36965900CE2EB3 /* Project object */;
 }
