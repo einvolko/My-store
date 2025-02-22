@@ -10,7 +10,7 @@ import ParseCore
 
 struct ContentView: View {
     @State  var parseManager = ParseManager()
-    var globalStorage: BasketStorage
+    var basketStorage: BasketStorage
     @State private var categoryArray: [String] = []
     @State private var fetchedObjectsArray: [PFObject] = []
     @State private var filteredObjectsArray: [PFObject] = []
@@ -50,9 +50,9 @@ struct ContentView: View {
                 LazyVGrid(columns: columns,alignment: .center, spacing: Self.itemSpacing) {
                     ForEach (filteredObjectsArray, id: \.self) { object in
                         NavigationLink {
-                            ItemDetailView(pfObject: object)
+                            ItemDetailView(basketStorage: basketStorage, pfObject: object)
                         } label: {
-                            ItemViewContainer(basketStorage: globalStorage ,pfObject: object)
+                            ItemViewContainer(basketStorage: basketStorage ,pfObject: object)
                         }
                     }
                 }

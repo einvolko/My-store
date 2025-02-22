@@ -13,6 +13,8 @@
 		8F5F31D82D676B7D00FB919E /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8F5F31D72D676B7D00FB919E /* ParseObjC */; };
 		8F8DD72B2D6798B300FCC019 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8F8DD72A2D6798B300FCC019 /* ParseLiveQuery */; };
 		8F8DD72D2D6798B300FCC019 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8F8DD72C2D6798B300FCC019 /* ParseObjC */; };
+		8F8DD7942D69E98D00FCC019 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8F8DD7932D69E98D00FCC019 /* ParseLiveQuery */; };
+		8F8DD7962D69E98D00FCC019 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8F8DD7952D69E98D00FCC019 /* ParseObjC */; };
 		8FF7F65C2D3D670000F28E30 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF7F65B2D3D670000F28E30 /* ParseLiveQuery */; };
 		8FF7F65E2D3D670000F28E30 /* ParseObjC in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF7F65D2D3D670000F28E30 /* ParseObjC */; };
 		8FF7F6612D3D673000F28E30 /* ParseLiveQuery in Frameworks */ = {isa = PBXBuildFile; productRef = 8FF7F6602D3D673000F28E30 /* ParseLiveQuery */; };
@@ -69,7 +71,9 @@
 				8F27C6A92D37C35900CE2EB3 /* ParseObjC in Frameworks */,
 				8F5F31D82D676B7D00FB919E /* ParseObjC in Frameworks */,
 				8FF7F65C2D3D670000F28E30 /* ParseLiveQuery in Frameworks */,
+				8F8DD7942D69E98D00FCC019 /* ParseLiveQuery in Frameworks */,
 				8FF7F6612D3D673000F28E30 /* ParseLiveQuery in Frameworks */,
+				8F8DD7962D69E98D00FCC019 /* ParseObjC in Frameworks */,
 				8FF7F65E2D3D670000F28E30 /* ParseObjC in Frameworks */,
 				8F8DD72D2D6798B300FCC019 /* ParseObjC in Frameworks */,
 				8F5F31D62D676B7D00FB919E /* ParseLiveQuery in Frameworks */,
@@ -145,6 +149,8 @@
 				8F5F31D72D676B7D00FB919E /* ParseObjC */,
 				8F8DD72A2D6798B300FCC019 /* ParseLiveQuery */,
 				8F8DD72C2D6798B300FCC019 /* ParseObjC */,
+				8F8DD7932D69E98D00FCC019 /* ParseLiveQuery */,
+				8F8DD7952D69E98D00FCC019 /* ParseObjC */,
 			);
 			productName = "My store";
 			productReference = 8F27C66F2D36965900CE2EB3 /* My store.app */;
@@ -230,7 +236,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				8F27C6A52D37C35900CE2EB3 /* XCRemoteSwiftPackageReference "Parse-SDK-iOS-OSX" */,
-				8F8DD7292D6798B300FCC019 /* XCLocalSwiftPackageReference "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0" */,
+				8F8DD7922D69E98D00FCC019 /* XCLocalSwiftPackageReference "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8F27C6702D36965900CE2EB3 /* Products */;
@@ -599,7 +605,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8F8DD7292D6798B300FCC019 /* XCLocalSwiftPackageReference "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0" */ = {
+		8F8DD7922D69E98D00FCC019 /* XCLocalSwiftPackageReference "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../../../Downloads/Parse-SDK-iOS-OSX-4.2.0";
 		};
@@ -640,6 +646,14 @@
 			productName = ParseLiveQuery;
 		};
 		8F8DD72C2D6798B300FCC019 /* ParseObjC */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseObjC;
+		};
+		8F8DD7932D69E98D00FCC019 /* ParseLiveQuery */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ParseLiveQuery;
+		};
+		8F8DD7952D69E98D00FCC019 /* ParseObjC */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ParseObjC;
 		};

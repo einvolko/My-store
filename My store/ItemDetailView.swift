@@ -5,11 +5,12 @@
 //  Created by Михаил Супрун on 1/26/25.
 //
 
-import Foundation
+
 import SwiftUI
 import ParseCore
 
 struct ItemDetailView: View {
+    var basketStorage: BasketStorage
     var pfObject: PFObject
     private static let cornerRadius = 15.0
     
@@ -39,6 +40,12 @@ struct ItemDetailView: View {
                 if let description {
                     Text(description.description)
                 }
+            Spacer()
+            Button("Add to basket") {
+                basketStorage.addToBasket(pfObject)
+            }
+            .buttonStyle(.bordered)
+            Spacer()
         }
         .task{
             let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject

@@ -5,7 +5,6 @@
 //  Created by Михаил Супрун on 1/27/25.
 //
 
-import Foundation
 import SwiftUI
 import ParseCore
  

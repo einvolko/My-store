@@ -5,7 +5,7 @@
 //  Created by Михаил Супрун on 1/27/25.
 //
 
-import Foundation
+
 import SwiftUI
 
 
@@ -15,7 +15,7 @@ struct TabViewController: View{
     var body: some View {
         TabView {
             Tab("Menu", systemImage: "rectangle.stack") {
-                ContentView(globalStorage: basketStorage)
+                ContentView(basketStorage: basketStorage)
             }
             Tab("Profile", systemImage: "person.crop.rectangle") {
                 if authViewModel.isAuthenticated {
