@@ -61,8 +61,16 @@ struct ProfileView: View{
             }
             Divider()
             Button("Sign out"){
-                authViewModel.signOut()}
-        }.task(){
+                authViewModel.signOut()
+            }
+            .font(.headline)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .background(Color.blue)
+            .cornerRadius(10)
+        }
+        .padding()
+        .task(){
             authViewModel.fetchUserContacts()
         }.alert("Change address", isPresented: $isPresentedFirst) {
             TextField("New address", text: $authViewModel.userAddress)

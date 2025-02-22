@@ -27,6 +27,12 @@ struct BasketView: View {
                     basketStorage.basketArray.removeAll()
                 } else {isPresented = true}
             }.disabled(basketStorage.basketArray.isEmpty)
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity, minHeight: 44)
+                .background(Color.blue)
+                .cornerRadius(10)
+                .padding()
             Divider()
             Text("Total price: \(basketStorage.getTotalPrice())")
                 .font(.headline)

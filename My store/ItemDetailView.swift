@@ -13,7 +13,7 @@ struct ItemDetailView: View {
     var basketStorage: BasketStorage
     var pfObject: PFObject
     private static let cornerRadius = 15.0
-    
+    @State private var feedbackGenerator: UIImpactFeedbackGenerator?
     @State private var image: UIImage?
     @State private var name: String?
     @State private var price: Int?
@@ -43,10 +43,16 @@ struct ItemDetailView: View {
             Spacer()
             Button("Add to basket") {
                 basketStorage.addToBasket(pfObject)
+                feedbackGenerator?.impactOccurred()
             }
-            .buttonStyle(.bordered)
+            .font(.headline)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .background(Color.blue)
+            .cornerRadius(10)
             Spacer()
         }
+        .padding()
         .task{
             let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject
             if let imageFile {
@@ -57,6 +63,10 @@ struct ItemDetailView: View {
             name = pfObject[ParseManager().nameKey] as? String
             price = pfObject[ParseManager().costKey] as? Int
             description = pfObject[ParseManager().descriptionKey] as? String
+        }
+        .onAppear{
+            feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+            feedbackGenerator?.prepare()
         }
     }
 }

@@ -42,8 +42,8 @@ struct ItemViewContainer: View {
                 }
                 Spacer()
                 Button(action: {
-                    basketStorage.addToBasket(pfObject)},
-                       label: {Image(systemName: "basket.fill")})
+                    basketStorage.addToBasket(pfObject)
+                },label: {Image(systemName: "basket.fill")})
                 .frame(minHeight: 50)
                 Spacer()
             }
