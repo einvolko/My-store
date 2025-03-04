@@ -45,11 +45,11 @@ struct BasketView: View {
                     alertMessage = "Check network connection"
                     isPresented = true
                 }
-            }.disabled(basketStorage.basketArray.isEmpty)
+            }.disabled(basketStorage.isEmpty)
                 .font(.headline)
-                .foregroundColor(.white)
+//                .foregroundColor(.white)
                 .frame(maxWidth: .infinity, minHeight: 44)
-                .background(Color.blue)
+//                .background(Color.blue)
                 .cornerRadius(10)
                 .padding()
             Divider()

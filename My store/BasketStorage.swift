@@ -10,7 +10,9 @@ import ParseCore
 
 class BasketStorage: ObservableObject {
     @Published var basketArray: [PFObject] = []
-    
+     var isEmpty: Bool {
+        return basketArray.isEmpty
+    }
     func addToBasket(_ object: PFObject){
         self.basketArray.append(object)
     }

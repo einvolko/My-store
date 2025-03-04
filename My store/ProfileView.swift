@@ -11,9 +11,7 @@ import ParseCore
 
 struct ProfileView: View{
     @ObservedObject var authViewModel : AuthViewModel
-    @State private var isPresentedFirst : Bool = false
-    @State private var isPresentedSecond : Bool = false
-    @State private var isPresentedThird : Bool = false
+    @State private var isPresented : Bool = false
     var body: some View{
         VStack{
             Text(PFUser.current()?.username ?? "")
@@ -22,13 +20,13 @@ struct ProfileView: View{
                 Text("Add your name")
                     .frame(minHeight: 30)
                     .onTapGesture {
-                        isPresentedThird = true
+                        isPresented = true
                     }
             } else {
                 Text(authViewModel.realName)
                     .frame(minHeight: 30)
                     .onTapGesture {
-                        isPresentedThird = true
+                        isPresented = true
                     }
             }
             Divider()
@@ -36,13 +34,13 @@ struct ProfileView: View{
                 Text("Add address")
                     .frame(minHeight: 30)
                     .onTapGesture {
-                        isPresentedFirst = true
+                        isPresented = true
                     }
             } else {
                 Text(authViewModel.userAddress)
                     .frame(minHeight: 30)
                     .onTapGesture {
-                        isPresentedFirst = true
+                        isPresented = true
                     }
             }
             Divider()
@@ -50,13 +48,13 @@ struct ProfileView: View{
                 Text("Add phone number")
                     .frame(minHeight: 30)
                     .onTapGesture {
-                        isPresentedSecond = true
+                        isPresented = true
                     }
             } else {
                 Text(authViewModel.userPhoneNumber)
                     .frame(minHeight: 30)
                     .onTapGesture {
-                        isPresentedSecond = true
+                        isPresented = true
                     }
             }
             Divider()
@@ -72,27 +70,14 @@ struct ProfileView: View{
         .padding()
         .task(){
             authViewModel.fetchUserContacts()
-        }.alert("Change address", isPresented: $isPresentedFirst) {
+        }.alert("Change your info", isPresented: $isPresented) {
             TextField("New address", text: $authViewModel.userAddress)
-            Button("Change", role: .cancel){
-                if let user = PFUser.current(){
-                    user["address"] = authViewModel.userAddress
-                    user.saveInBackground()
-                }
-            }
-        }.alert("Change phone number", isPresented: $isPresentedSecond) {
             TextField("New phone number", text: $authViewModel.userPhoneNumber)
-                .keyboardType(.numberPad)
-            Button("Change", role: .cancel){
-                if let user = PFUser.current(){
-                    user["number"] = authViewModel.userPhoneNumber
-                    user.saveInBackground()
-                }
-            }
-        }.alert("Change your name", isPresented: $isPresentedThird) {
             TextField("New name", text: $authViewModel.realName)
             Button("Change", role: .cancel){
                 if let user = PFUser.current(){
+                    user["address"] = authViewModel.userAddress
+                    user["number"] = authViewModel.userPhoneNumber
                     user["name"] = authViewModel.realName
                     user.saveInBackground()
                 }
