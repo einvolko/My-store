@@ -7,25 +7,44 @@
 
 import SwiftUI
 import ParseCore
- 
+import Network
 struct BasketView: View {
     @ObservedObject var basketStorage: BasketStorage
     @State private var isPresented: Bool = false
+    @State private var alertMessage: String = ""
+    @State private var isConnected : Bool?
+    let monitor = NWPathMonitor()
     var body: some View {
         
         NavigationStack {
             List {
                 ForEach(basketStorage.basketArray, id: \.self){
                     BasketViewContainer(pfObject: $0)
-                }.onDelete { IndexSet in
-                    removeItems(at: IndexSet)
+                }.onDelete { indexSet in
+                    basketStorage.basketArray.remove(atOffsets: indexSet)
                 }
             }
             Button("Send order") {
-                if ParseManager().checkAuthenticationStatus(){
-                    ParseManager().sendOrderToServer(orderString: basketStorage.getOrderString(), userAddress: (PFUser.current()?["address"] as? String ?? "") + "/" + (PFUser.current()?["number"] as? String ?? "") + "/" + (PFUser.current()?["name"] as? String ?? ""))
-                    basketStorage.basketArray.removeAll()
-                } else {isPresented = true}
+                if isConnected ?? true {
+                    if ParseManager().checkAuthenticationStatus(){
+                        ParseManager().sendOrderToServer(orderString: basketStorage.getOrderString(), userAddress: (PFUser.current()?["address"] as? String ?? "") + "/" + (PFUser.current()?["number"] as? String ?? "") + "/" + (PFUser.current()?["name"] as? String ?? ""), completion: {success, error in
+                            if success {
+                                alertMessage = "Order sent successfully!"
+                                isPresented = success
+                            }
+                            if error != nil {
+                                alertMessage = error?.localizedDescription ?? "Unknown error"
+                                isPresented = true
+                            }
+                        })
+                        basketStorage.basketArray.removeAll()
+                    } else {
+                        alertMessage = "Please, authorize yourself!"
+                        isPresented = true}
+                } else {
+                    alertMessage = "Check network connection"
+                    isPresented = true
+                }
             }.disabled(basketStorage.basketArray.isEmpty)
                 .font(.headline)
                 .foregroundColor(.white)
@@ -37,12 +56,27 @@ struct BasketView: View {
             Text("Total price: \(basketStorage.getTotalPrice())")
                 .font(.headline)
                 .padding()
-        }.alert("Please, authentification", isPresented: $isPresented) {
+        }.onAppear(){
+            startMonitoring()
+        }
+        .onDisappear(){
+            stopMonitoring()
+        }
+        .alert( alertMessage, isPresented: $isPresented) {
             Button("Ok", role: .cancel){ }
+        }
+        
+    }
+    private func startMonitoring() {
+        monitor.pathUpdateHandler = { path in
+            DispatchQueue.main.async {
+                isConnected = path.status == .satisfied
             }
+        }
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        monitor.start(queue: queue)
     }
-    func removeItems(at offsets: IndexSet) {
-        basketStorage.basketArray.remove(atOffsets: offsets)
+    private func stopMonitoring() {
+        monitor.cancel()
     }
-   
 }

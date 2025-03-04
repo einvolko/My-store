@@ -108,15 +108,17 @@ class ParseManager: ObservableObject {
             }
         }
     }
-    func sendOrderToServer(orderString: String, userAddress: String){
+    func sendOrderToServer(orderString: String, userAddress: String, completion: @escaping (Bool, Error?) -> Void){
         let order = PFObject(className: "Orders")
         order["Description"] = orderString
         order["address"] = userAddress
         order.saveInBackground { success, error in
             if let error = error {
+                completion(false, error)
                 print(error.localizedDescription)
             } else {
                 print("Order send successfuly!")}
+            completion(true, nil)
         }
     }
 }
