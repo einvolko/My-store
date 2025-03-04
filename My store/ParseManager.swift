@@ -15,7 +15,6 @@ class ParseManager: ObservableObject {
     let descriptionKey = "Description"
     let imageKey = "Image"
     
-    
     func checkParseConnection(completion: @escaping (Bool, Error?) -> Void) {
         let query = PFQuery(className: "Test")
         query.limit = 1
@@ -121,3 +120,4 @@ class ParseManager: ObservableObject {
         }
     }
 }
+

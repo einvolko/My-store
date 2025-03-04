@@ -12,10 +12,11 @@ import SwiftUI
 struct TabViewController: View{
     @ObservedObject var basketStorage = BasketStorage()
     @ObservedObject var authViewModel = AuthViewModel()
+    @ObservedObject var dataModel = DataModel()
     var body: some View {
         TabView {
             Tab("Menu", systemImage: "rectangle.stack") {
-                ContentView(basketStorage: basketStorage)
+                ContentView(dataModel: dataModel, basketStorage: basketStorage)
             }
             Tab("Profile", systemImage: "person.crop.rectangle") {
                 if authViewModel.isAuthenticated {

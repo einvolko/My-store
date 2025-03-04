@@ -9,11 +9,9 @@ import SwiftUI
 import ParseCore
 
 struct ContentView: View {
-    @State  var parseManager = ParseManager()
-    var basketStorage: BasketStorage
-    @State private var categoryArray: [String] = []
-    @State private var fetchedObjectsArray: [PFObject] = []
-    @State private var filteredObjectsArray: [PFObject] = []
+    @ObservedObject var dataModel: DataModel
+    @ObservedObject var basketStorage: BasketStorage
+   
     @State private var selectedCategory: String = "All"
     private static let itemSize: CGFloat = UIScreen.main.bounds.size.width / 2 - 10
     private static let itemSpacing: CGFloat = 10.0
@@ -31,9 +29,9 @@ struct ContentView: View {
                     .clipShape(Capsule())
                     .onTapGesture {
                         selectedCategory = "All"
-                        filterItems(category: selectedCategory)
+                        dataModel.filterItems(category: selectedCategory)
                     }
-                ForEach(categoryArray, id: \.self){ category in
+                ForEach(dataModel.categoryArray, id: \.self){ category in
                     Text(category)
                         .padding()
                         .font(.headline)
@@ -41,14 +39,14 @@ struct ContentView: View {
                         .clipShape(Capsule())
                         .onTapGesture {
                             selectedCategory = category
-                            filterItems(category: category)
+                            dataModel.filterItems(category: category)
                         }
                 }
             }
             Spacer()
             ScrollView{
                 LazyVGrid(columns: columns,alignment: .center, spacing: Self.itemSpacing) {
-                    ForEach (filteredObjectsArray, id: \.self) { object in
+                    ForEach (dataModel.filteredObjectsArray, id: \.self) { object in
                         NavigationLink {
                             ItemDetailView(basketStorage: basketStorage, pfObject: object)
                         } label: {
@@ -59,38 +57,13 @@ struct ContentView: View {
             }
         }
         .refreshable {
-            refreshData(category: selectedCategory)
+            dataModel.refreshData(category: selectedCategory)
         }
         .task() {                      // How to make task perform once when app start?
-            getCategoryArray()
+            dataModel.getCategoryArray()
         }
-        .onChange(of: categoryArray) { _, _ in
-            refreshData(category: selectedCategory)
-        }
-    }
-    func getCategoryArray(){
-        parseManager.fetchObjectArray(className: parseManager.classNameKey) { objectsArray in
-            guard let objectsArray = objectsArray else {return}
-            categoryArray = objectsArray.compactMap({ $0[parseManager.classNameKey] as? String })
-        }
-    }
-    func refreshData(category: String){
-        fetchedObjectsArray.removeAll()
-        for key in categoryArray {
-            parseManager.fetchObjectArray(className: key) { objectsArray in
-                if let objectsArray {
-                    for object in objectsArray{
-                        fetchedObjectsArray.append(object)
-                        filterItems(category: category)
-                    }
-                }
-            }
-        }
-    }
-    func filterItems(category: String){
-        filteredObjectsArray.removeAll()
-        if category == "All"{ filteredObjectsArray = fetchedObjectsArray} else {
-            filteredObjectsArray = fetchedObjectsArray.compactMap { ($0.parseClassName == category) ? $0 : nil}
+        .onChange(of: dataModel.categoryArray) { _, _ in
+            dataModel.refreshData(category: selectedCategory)
         }
     }
 }
