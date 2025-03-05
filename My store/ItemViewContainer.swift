@@ -9,7 +9,7 @@ import SwiftUI
 import ParseCore
 
 struct ItemViewContainer: View {
-    var cart: Cart
+    @ObservedObject var cart: Cart
     var product: PFObject
     @State private var image: UIImage?
     @State private var name: String?
@@ -42,7 +42,7 @@ struct ItemViewContainer: View {
                 }
                 Spacer()
                 Button(action: {
-                    cart.addToBasket(product)
+                    cart.addToCart(product)
                 },label: {Image(systemName: "basket.fill")})
                 .frame(minHeight: 50)
                 Spacer()

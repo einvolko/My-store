@@ -13,11 +13,18 @@ class Cart: ObservableObject {
      var isEmpty: Bool {
         return items.isEmpty
     }
-    func addToBasket(_ object: PFObject){
+    func addToCart(_ object: PFObject){
         if let count = items[object]{
             items[object] = count + 1
         } else{
             items[object] = 1
+        }
+    }
+    func removeFromCart(_ object: PFObject){
+        if let count = items[object], count > 1 {
+            items[object] = count - 1
+        } else{
+            items.removeValue(forKey: object)
         }
     }
     func getTotalPrice() -> Int{

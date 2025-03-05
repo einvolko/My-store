@@ -9,22 +9,25 @@ import SwiftUI
 import ParseCore
 import Network
 
-struct BasketView: View {
+struct CartView: View {
+    let monitor = NWPathMonitor()
     @ObservedObject var cart: Cart
     @State private var isPresented: Bool = false
     @State private var alertMessage: String = ""
     @State private var isConnected : Bool?
-    let monitor = NWPathMonitor()
+    private static let itemSize: CGFloat = UIScreen.main.bounds.size.width - 10
+    private static let itemSpacing: CGFloat = 10.0
+    private let columns = [GridItem(.fixed(itemSize), spacing: itemSpacing)]
     var body: some View {
         
-        NavigationStack {
-            List {
+            LazyVGrid(columns: columns, content: {
                 ForEach(Array(cart.items.keys), id: \.self){
-                    BasketViewContainer(cart: cart, pfObject: $0)
+                    CartViewContainer(cart: cart, pfObject: $0)
                 }.onDelete { indexSet in
                     cart.items.removeValue(forKey: Array(cart.items.keys)[indexSet.first!])
                 }
-            }
+            })
+        Spacer()
             Button("Send order") {
                 if isConnected ?? true {
                     if ParseManager().checkAuthenticationStatus(){
@@ -46,23 +49,25 @@ struct BasketView: View {
                     alertMessage = "Check network connection"
                     isPresented = true
                 }
-            }.disabled(cart.items.isEmpty)
-                .font(.headline)
+            }.onAppear(){
+                startMonitoring()
+            }
+            .onDisappear(){
+                stopMonitoring()
+            }
+            
+            .disabled(cart.items.isEmpty)
+            .font(.headline)
             //                .foregroundColor(.white)
-                .frame(maxWidth: .infinity, minHeight: 44)
+            .frame(maxWidth: .infinity, minHeight: 44)
             //                .background(Color.blue)
-                .cornerRadius(10)
-                .padding()
+            .cornerRadius(10)
+            .padding()
             Divider()
             Text("Total price: \(cart.getTotalPrice())")
                 .font(.headline)
                 .padding()
-        }.onAppear(){
-            startMonitoring()
-        }
-        .onDisappear(){
-            stopMonitoring()
-        }
+       
         .alert( alertMessage, isPresented: $isPresented) {
             Button("Ok", role: .cancel){ }
         }

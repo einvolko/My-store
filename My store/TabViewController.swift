@@ -26,7 +26,7 @@ struct TabViewController: View{
                     }
                 }
             Tab("Basket", systemImage: "basket") {
-                BasketView(cart: cart)
+                CartView(cart: cart)
             }
             .badge(cart.items.count.description)
         }

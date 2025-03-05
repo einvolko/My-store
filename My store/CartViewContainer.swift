@@ -10,7 +10,7 @@ import SwiftUI
 import ParseCore
 
 
-struct BasketViewContainer: View{
+struct CartViewContainer: View{
     @ObservedObject var cart: Cart
     var pfObject: PFObject
     @State private var image: UIImage?
@@ -35,7 +35,16 @@ struct BasketViewContainer: View{
                 if let price{Text(price.description)}
             }
             Spacer()
+            
+            Button(action: {
+                cart.removeFromCart(pfObject)
+            },label: {Image(systemName: "minus.circle")})
+            Spacer()
             Text(cart.items[pfObject]?.description ?? "")
+            Spacer()
+            Button(action: {
+                cart.addToCart(pfObject)
+            },label: {Image(systemName: "plus.circle")})
         }
         .task {
             let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject

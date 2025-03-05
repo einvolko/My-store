@@ -45,7 +45,7 @@ struct ItemDetailView: View {
             }
             Spacer()
             Button("Add to basket") {
-                cart.addToBasket(product)
+                cart.addToCart(product)
                 feedbackGenerator?.impactOccurred()
             }
             .padding()
