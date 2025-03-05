@@ -31,7 +31,7 @@ struct ContentView: View {
                         selectedCategory = "All"
                         dataModel.filterItems(category: selectedCategory)
                     }
-                ForEach(dataModel.categoryArray, id: \.self){ category in
+                ForEach(dataModel.categories, id: \.self){ category in
                     Text(category)
                         .padding()
                         .font(.headline)
@@ -46,11 +46,11 @@ struct ContentView: View {
             Spacer()
             ScrollView{
                 LazyVGrid(columns: columns,alignment: .center, spacing: Self.itemSpacing) {
-                    ForEach (dataModel.filteredObjectsArray, id: \.self) { object in
+                    ForEach (dataModel.dispalayedObjects, id: \.self) { product in
                         NavigationLink {
-                            ItemDetailView(basketStorage: basketStorage, pfObject: object)
+                            ItemDetailView(basketStorage: basketStorage, product: product)
                         } label: {
-                            ItemViewContainer(basketStorage: basketStorage ,pfObject: object)
+                            ItemViewContainer(basketStorage: basketStorage, product: product)
                         }
                     }
                 }
@@ -60,10 +60,10 @@ struct ContentView: View {
             dataModel.refreshData(category: selectedCategory)
         }
         .task() {                      // How to make task perform once when app start?
-            dataModel.getCategoryArray()
+            dataModel.fetchAllProducts()
         }
-        .onChange(of: dataModel.categoryArray) { _, _ in
-            dataModel.refreshData(category: selectedCategory)
-        }
+//        .onChange(of: dataModel.categories) { _, _ in
+//            dataModel.refreshData(category: selectedCategory)
+//        }
     }
 }

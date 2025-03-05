@@ -8,37 +8,44 @@
 import SwiftUI
 import ParseCore
 
+
 class DataModel: ObservableObject {
     
     var parseManager = ParseManager()
     
-    @Published var fetchedObjectsArray: [PFObject] = []
-    @Published var filteredObjectsArray: [PFObject] = []
-    @Published var categoryArray: [String] = []
+    @Published var fetchedObjects: [PFObject] = []
+    @Published var dispalayedObjects: [PFObject] = []
+    @Published var categories: [String] = []
     
-    func getCategoryArray(){
-        parseManager.fetchObjectArray(className: parseManager.classNameKey) { objectsArray in
-            guard let objectsArray = objectsArray else {return}
-            self.categoryArray = objectsArray.compactMap({ $0[self.parseManager.classNameKey] as? String })
-        }
-    }
-    func refreshData(category: String){
-        fetchedObjectsArray.removeAll()
-        for key in categoryArray {
-            parseManager.fetchObjectArray(className: key) { objectsArray in
-                if let objectsArray {
-                    for object in objectsArray{
-                        self.fetchedObjectsArray.append(object)
-                        self.filterItems(category: category)
+    func fetchAllProducts(){
+        parseManager.fetchObjectArray(className: parseManager.classNameKey) { categoriesArray in
+            if let categoriesArray {
+                self.categories = categoriesArray.compactMap({ $0[self.parseManager.classNameKey] as? String })
+                for categoty in self.categories{
+                    self.parseManager.fetchObjectArray(className: categoty) { objectsArray in
+                        if let objectsArray{
+                            self.fetchedObjects.append(contentsOf: objectsArray)
+                            self.dispalayedObjects = self.fetchedObjects
+                        }
                     }
                 }
             }
         }
     }
+    func refreshData(category: String){
+        dispalayedObjects.removeAll()
+        if category == "All"{ dispalayedObjects = fetchedObjects} else {
+            parseManager.fetchObjectArray(className: category) { objectsArray in
+                if let objectsArray {
+                    self.dispalayedObjects.append(contentsOf: objectsArray)
+                }
+            }
+        }
+    }
     func filterItems(category: String){
-        filteredObjectsArray.removeAll()
-        if category == "All"{ filteredObjectsArray = fetchedObjectsArray} else {
-            filteredObjectsArray = fetchedObjectsArray.compactMap { ($0.parseClassName == category) ? $0 : nil}
+        dispalayedObjects.removeAll()
+        if category == "All"{ dispalayedObjects = fetchedObjects} else {
+            dispalayedObjects = fetchedObjects.compactMap { ($0.parseClassName == category) ? $0 : nil}
         }
     }
 }

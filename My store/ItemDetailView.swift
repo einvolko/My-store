@@ -11,7 +11,7 @@ import ParseCore
 
 struct ItemDetailView: View {
     var basketStorage: BasketStorage
-    var pfObject: PFObject
+    var product: PFObject
     private static let cornerRadius = 15.0
     @State private var feedbackGenerator: UIImpactFeedbackGenerator?
     @State private var image: UIImage?
@@ -42,27 +42,28 @@ struct ItemDetailView: View {
                 }
             Spacer()
             Button("Add to basket") {
-                basketStorage.addToBasket(pfObject)
+                basketStorage.addToBasket(product)
                 feedbackGenerator?.impactOccurred()
             }
+            .padding()
             .font(.headline)
             .foregroundColor(.white)
-            .frame(maxWidth: .infinity, minHeight: 44)
+            .frame(minHeight: 44)
             .background(Color.blue)
             .cornerRadius(10)
             Spacer()
         }
         .padding()
         .task{
-            let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject
+            let imageFile = product[ParseManager().imageKey] as? PFFileObject
             if let imageFile {
                 ParseManager().downloadImage(file: imageFile) { uiimage in
                     image = uiimage
                 }
             }
-            name = pfObject[ParseManager().nameKey] as? String
-            price = pfObject[ParseManager().costKey] as? Int
-            description = pfObject[ParseManager().descriptionKey] as? String
+            name = product[ParseManager().nameKey] as? String
+            price = product[ParseManager().costKey] as? Int
+            description = product[ParseManager().descriptionKey] as? String
         }
         .onAppear{
             feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)

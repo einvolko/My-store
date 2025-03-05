@@ -34,6 +34,7 @@ struct BasketViewContainer: View{
                 if let price{Text(price.description)}
             }
             Spacer()
+            Text("")
         }
         .task {
             let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject

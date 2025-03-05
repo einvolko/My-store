@@ -10,7 +10,7 @@ import ParseCore
 
 struct ItemViewContainer: View {
     var basketStorage: BasketStorage
-    var pfObject: PFObject
+    var product: PFObject
     @State private var image: UIImage?
     @State private var name: String?
     @State private var price: Int?
@@ -42,7 +42,7 @@ struct ItemViewContainer: View {
                 }
                 Spacer()
                 Button(action: {
-                    basketStorage.addToBasket(pfObject)
+                    basketStorage.addToBasket(product)
                 },label: {Image(systemName: "basket.fill")})
                 .frame(minHeight: 50)
                 Spacer()
@@ -53,14 +53,14 @@ struct ItemViewContainer: View {
                 .opacity(0.75))
         }
         .task{
-            let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject
+            let imageFile = product[ParseManager().imageKey] as? PFFileObject
             if let imageFile {
                 ParseManager().downloadImage(file: imageFile) { uiimage in
                     image = uiimage
                 }
             }
-            name = pfObject[ParseManager().nameKey] as? String
-            price = pfObject[ParseManager().costKey] as? Int
+            name = product[ParseManager().nameKey] as? String
+            price = product[ParseManager().costKey] as? Int
         }
     }
 }

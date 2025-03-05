@@ -19,7 +19,6 @@ struct My_storeApp: App {
             $0.server = "https://parseapi.back4app.com"
         }
         Parse.initialize(with: configuration)
-        
     }
     var body: some Scene {
         WindowGroup {
