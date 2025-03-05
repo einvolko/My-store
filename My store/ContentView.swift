@@ -10,8 +10,8 @@ import ParseCore
 
 struct ContentView: View {
     @ObservedObject var dataModel: DataModel
-    @ObservedObject var basketStorage: BasketStorage
-   
+    @ObservedObject var cart: Cart
+    @State var isFirstLaunch: Bool = true
     @State private var selectedCategory: String = "All"
     private static let itemSize: CGFloat = UIScreen.main.bounds.size.width / 2 - 10
     private static let itemSpacing: CGFloat = 10.0
@@ -48,9 +48,9 @@ struct ContentView: View {
                 LazyVGrid(columns: columns,alignment: .center, spacing: Self.itemSpacing) {
                     ForEach (dataModel.dispalayedObjects, id: \.self) { product in
                         NavigationLink {
-                            ItemDetailView(basketStorage: basketStorage, product: product)
+                            ItemDetailView(cart: cart, product: product)
                         } label: {
-                            ItemViewContainer(basketStorage: basketStorage, product: product)
+                            ItemViewContainer(cart: cart, product: product)
                         }
                     }
                 }
@@ -59,11 +59,12 @@ struct ContentView: View {
         .refreshable {
             dataModel.refreshData(category: selectedCategory)
         }
-        .task() {                      // How to make task perform once when app start?
-            dataModel.fetchAllProducts()
+        .task() {
+            if isFirstLaunch {
+                dataModel.fetchAllProducts()
+                isFirstLaunch.toggle()
+            }
+            
         }
-//        .onChange(of: dataModel.categories) { _, _ in
-//            dataModel.refreshData(category: selectedCategory)
-//        }
     }
 }

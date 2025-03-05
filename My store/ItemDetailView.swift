@@ -10,7 +10,7 @@ import SwiftUI
 import ParseCore
 
 struct ItemDetailView: View {
-    var basketStorage: BasketStorage
+    var cart: Cart
     var product: PFObject
     private static let cornerRadius = 15.0
     @State private var feedbackGenerator: UIImpactFeedbackGenerator?
@@ -32,17 +32,20 @@ struct ItemDetailView: View {
             }
                 if let name {
                     Text(name)
+                        .font(.headline)
                         .bold()
                 }
-                if let price {
-                    Text(price.description)
-                }
+            Divider()
+              
                 if let description {
                     Text(description.description)
                 }
+            if let price {
+                Text("Cost: \(price.description)" )
+            }
             Spacer()
             Button("Add to basket") {
-                basketStorage.addToBasket(product)
+                cart.addToBasket(product)
                 feedbackGenerator?.impactOccurred()
             }
             .padding()

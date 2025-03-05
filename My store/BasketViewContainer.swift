@@ -11,6 +11,7 @@ import ParseCore
 
 
 struct BasketViewContainer: View{
+    @ObservedObject var cart: Cart
     var pfObject: PFObject
     @State private var image: UIImage?
     @State private var name: String?
@@ -34,7 +35,7 @@ struct BasketViewContainer: View{
                 if let price{Text(price.description)}
             }
             Spacer()
-            Text("")
+            Text(cart.items[pfObject]?.description ?? "")
         }
         .task {
             let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject

@@ -10,7 +10,7 @@ import ParseCore
 import Network
 
 struct BasketView: View {
-    @ObservedObject var basketStorage: BasketStorage
+    @ObservedObject var cart: Cart
     @State private var isPresented: Bool = false
     @State private var alertMessage: String = ""
     @State private var isConnected : Bool?
@@ -19,16 +19,16 @@ struct BasketView: View {
         
         NavigationStack {
             List {
-                ForEach(basketStorage.basketArray, id: \.self){
-                    BasketViewContainer(pfObject: $0)
+                ForEach(Array(cart.items.keys), id: \.self){
+                    BasketViewContainer(cart: cart, pfObject: $0)
                 }.onDelete { indexSet in
-                    basketStorage.basketArray.remove(atOffsets: indexSet)
+                    cart.items.removeValue(forKey: Array(cart.items.keys)[indexSet.first!])
                 }
             }
             Button("Send order") {
                 if isConnected ?? true {
                     if ParseManager().checkAuthenticationStatus(){
-                        ParseManager().sendOrderToServer(orderString: basketStorage.getOrderString(), userAddress: (PFUser.current()?["address"] as? String ?? "") + "/" + (PFUser.current()?["number"] as? String ?? "") + "/" + (PFUser.current()?["name"] as? String ?? ""), completion: {success, error in
+                        ParseManager().sendOrderToServer(orderString: cart.getOrderString(), userAddress: (PFUser.current()?["address"] as? String ?? "") + "/" + (PFUser.current()?["number"] as? String ?? "") + "/" + (PFUser.current()?["name"] as? String ?? ""), completion: {success, error in
                             if success {
                                 alertMessage = "Order sent successfully!"
                                 isPresented = success
@@ -38,7 +38,7 @@ struct BasketView: View {
                                 isPresented = true
                             }
                         })
-                        basketStorage.basketArray.removeAll()
+                        cart.items.removeAll()
                     } else {
                         alertMessage = "Please, authorize yourself!"
                         isPresented = true}
@@ -46,15 +46,15 @@ struct BasketView: View {
                     alertMessage = "Check network connection"
                     isPresented = true
                 }
-            }.disabled(basketStorage.isEmpty)
+            }.disabled(cart.items.isEmpty)
                 .font(.headline)
-//                .foregroundColor(.white)
+            //                .foregroundColor(.white)
                 .frame(maxWidth: .infinity, minHeight: 44)
-//                .background(Color.blue)
+            //                .background(Color.blue)
                 .cornerRadius(10)
                 .padding()
             Divider()
-            Text("Total price: \(basketStorage.getTotalPrice())")
+            Text("Total price: \(cart.getTotalPrice())")
                 .font(.headline)
                 .padding()
         }.onAppear(){
@@ -66,7 +66,6 @@ struct BasketView: View {
         .alert( alertMessage, isPresented: $isPresented) {
             Button("Ok", role: .cancel){ }
         }
-        
     }
     private func startMonitoring() {
         monitor.pathUpdateHandler = { path in
