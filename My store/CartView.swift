@@ -19,7 +19,7 @@ struct CartView: View {
     private static let itemSpacing: CGFloat = 10.0
     private let columns = [GridItem(.fixed(itemSize), spacing: itemSpacing)]
     var body: some View {
-        
+        ScrollView{
             LazyVGrid(columns: columns, content: {
                 ForEach(Array(cart.items.keys), id: \.self){
                     CartViewContainer(cart: cart, pfObject: $0)
@@ -27,6 +27,7 @@ struct CartView: View {
                     cart.items.removeValue(forKey: Array(cart.items.keys)[indexSet.first!])
                 }
             })
+        }
         Spacer()
             Button("Send order") {
                 if isConnected ?? true {
@@ -34,6 +35,7 @@ struct CartView: View {
                         ParseManager().sendOrderToServer(orderString: cart.getOrderString(), userAddress: (PFUser.current()?["address"] as? String ?? "") + "/" + (PFUser.current()?["number"] as? String ?? "") + "/" + (PFUser.current()?["name"] as? String ?? ""), completion: {success, error in
                             if success {
                                 alertMessage = "Order sent successfully!"
+                                cart.saveCartToUserDefaults()
                                 isPresented = success
                             }
                             if error != nil {

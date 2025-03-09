@@ -64,7 +64,9 @@ struct ContentView: View {
                 dataModel.fetchAllProducts()
                 isFirstLaunch.toggle()
             }
-            
+        }
+        .onChange(of: dataModel.categories) { _, _ in
+            cart.loadCart(categories: dataModel.categories)
         }
     }
 }

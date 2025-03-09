@@ -46,6 +46,7 @@ struct ItemDetailView: View {
             Spacer()
             Button("Add to basket") {
                 cart.addToCart(product)
+                cart.saveCartToUserDefaults()
                 feedbackGenerator?.impactOccurred()
             }
             .padding()

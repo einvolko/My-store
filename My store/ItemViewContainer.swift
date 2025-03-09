@@ -43,6 +43,7 @@ struct ItemViewContainer: View {
                 Spacer()
                 Button(action: {
                     cart.addToCart(product)
+                    cart.saveCartToUserDefaults()
                 },label: {Image(systemName: "basket.fill")})
                 .frame(minHeight: 50)
                 Spacer()

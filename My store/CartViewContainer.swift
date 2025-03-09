@@ -38,13 +38,17 @@ struct CartViewContainer: View{
             
             Button(action: {
                 cart.removeFromCart(pfObject)
+                cart.saveCartToUserDefaults()
             },label: {Image(systemName: "minus.circle")})
-            Spacer()
+           
             Text(cart.items[pfObject]?.description ?? "")
-            Spacer()
+                .padding()
+     
             Button(action: {
                 cart.addToCart(pfObject)
+                cart.saveCartToUserDefaults()
             },label: {Image(systemName: "plus.circle")})
+            .padding(.trailing)
         }
         .task {
             let imageFile = pfObject[ParseManager().imageKey] as? PFFileObject
